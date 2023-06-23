@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewposrt" cantent="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<title>Ajax 1 Text File</title>
+</head>
+
+<body>
+The content of the document......
+<br><br>
+<button id="style-btn">Get Text File</button>
+<br><br>
+<div id="text"></div>
+
+
+
+	<script>
+		//Create event listener
+		document.getElementById('style-btn').addEventListener('click', loadText);
+		
+		function loadText(){
+			//Create XHR Object - called request or xml request or xhr
+			let xhr = new XMLHttpRequest();
+			//Open - type, url/file, async
+			xhr.open('GET', 'simple.txt', true);
+			
+			console.log('READYSTATE: ', xhr.readyState);
+			
+			
+			//u not gonna need all this stuff unless you want
+			//some kind of loader...
+			//OPTINAL - used for loaders
+			xhr.onprogress = function(){
+				console.log('READYSTATE: ', xhr.readyState);
+			}
+			
+			//u not gonna need all this stuff
+			xhr.onload = function(){
+				console.log('READYSTATE: ', xhr.readyState);
+				if(this.status == 200){
+					//console.log(this.responseText);
+					document.getElementById('text').innerHTML = this.responseText;
+				} else if( this.status = 400){
+					document.getElementById('text').innerHTML = 'Not Found';
+				}
+			}
+			
+			xhr.onerror = function(){
+				console.log('Request Error...');
+			}
+			
+			//u not gonna need all this stuff
+			<!-- xhr.onreadystatechange = function(){ -->
+				<!-- console.log('READYSTATE: ', xhr.readyState); -->
+				<!-- if(this.readyState == 4 && this.status == 200){ -->
+					<!-- //console.log(this.responseText); -->
+				<!-- } -->
+			<!-- } -->
+			
+			//Send request 
+			xhr.send();
+		}
+		
+		// readyState Values
+		// 0: request not initialized
+		// 1: server connection established
+		// 2: request received
+		// 3: processing request
+		// 4: request finished and response is ready
+		
+		// HTTP Statuses
+		// 200: "OK"
+		// 403: "Forbidden"
+		// 404: "Not Found"
+		
+		
+	</script>
+</body>
+
+</html>
